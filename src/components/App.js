@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { handleInitialData } from '../actions/shared'
 import Nav from './Nav'
 import User from './User'
 import Login from './Login'
@@ -10,31 +12,49 @@ import Question from './Question'
 
 import '../App.css'
 
-function App() {
-  return (
-    <div className="container">
-      <header className="header">
-        <h1 className='title'>APP - Would You Rather?</h1>
-        <Nav />
-        <User />
-      </header>
+class App extends Component {
+  componentDidMount() {
+    this.props.dispatch(handleInitialData())
+  }
 
-      <main className='main'>
+  render() {
+    return (
+      <div className="container">
+        <header className="header">
+          <h1 className='title'>APP - Would You Rather?</h1>
+          <Nav />
+          {this.props.user && (
+            <User />
+          )}
+        </header>
 
-        <Login />
-        <QuestionsAnswers />
-        <NewQuestion />
-        <LeaderBoard />
-        <Answered />
-        <Question />        
-        
-      </main>
+        <main className='main'>
+          {!this.props.user
+            ? <Login />
+            : (
+              <div>
+                <QuestionsAnswers />
+                <NewQuestion />
+                <LeaderBoard />
+                <Answered />
+                <Question />
+              </div>
+            )
+          }
+        </main>
 
-      <footer className='footer'>
-        <h2>Developed by: Reberth</h2>
-      </footer>
-    </div>
-  );
+        <footer className='footer'>
+          {/*<h2>Developed by: Reberth</h2>*/}
+        </footer>
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    user: state.loggedUser ? state.loggedUser : null
+  }
+}
+
+export default connect(mapStateToProps)(App)

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-export default class QuestionsAnswers extends Component {
+class QuestionsAnswers extends Component {
     render() {
+        console.log('dentro', this.props)
         return (
             <div className="questions-answers">
                 <ul className="nav nav-tabs">
@@ -12,7 +14,7 @@ export default class QuestionsAnswers extends Component {
                     <div className="tab-pane active">
                         <p>list UL with answered</p>
                     </div>
-                    <div class="tab-pane">
+                    <div className="tab-pane">
                         <p>list UL with answered</p>
                     </div>
                 </div>
@@ -20,3 +22,7 @@ export default class QuestionsAnswers extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => state
+
+export default connect(mapStateToProps)(QuestionsAnswers)

@@ -1,16 +1,40 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { login } from '../actions/shared'
 
-const Login = props => (
-    <form className='login' onSubmit={() => console.log('logou')}>
-        <select>
-            <option>User 1</option>
-            <option>User 2</option>
-            <option>User 3</option>
-        </select>
-        <button className='btn' type='submit'>
-            Login
-        </button>
-    </form>
-)
+class Login extends Component {
+    handleSubmit = (e) => {
+        e.preventDefault()
 
-export default Login
+        this.props.dispatch(login(this.refs.users.value))
+    }
+
+    render() {
+        const { users } = this.props
+        console.log(users);
+        return (
+            <form className='login' onSubmit={this.handleSubmit}>
+                <select ref='users'>
+                    {Object.keys(users).map(user => (
+                        <option
+                            name='user'                            
+                            value={users[user].id}
+                            key={users[user].id}
+                        >
+                            {users[user].name}
+                        </option>
+                    ))}
+                </select>
+                <button className='btn' type='submit'>Login</button>
+            </form>
+        )
+    }
+}
+
+const mapStateToProps = ({users}) => {
+    return {
+        users
+    }
+}
+
+export default connect(mapStateToProps)(Login)
