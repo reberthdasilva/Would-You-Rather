@@ -11,7 +11,6 @@ class Login extends Component {
 
     render() {
         const { users } = this.props
-        console.log(users);
         return (
             <form className='login' onSubmit={this.handleSubmit}>
                 <select ref='users'>

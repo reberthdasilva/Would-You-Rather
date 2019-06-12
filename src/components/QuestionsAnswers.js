@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 class QuestionsAnswers extends Component {
     render() {
-        console.log('dentro', this.props)
         return (
             <div className="questions-answers">
                 <ul className="nav nav-tabs">

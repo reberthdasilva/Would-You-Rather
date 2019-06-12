@@ -1,12 +1,19 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const Nav = props => {
     return (
         <nav className='menu'>
             <ul className='menu__list'>
-                <li className='menu__item'><a href="#">Home</a></li>
-                <li className='menu__item'><a href="#">New Question</a></li>
-                <li className='menu__item'><a href="#">Leader Board</a></li>
+                <NavLink to='/' exact className='menu__item' activeClassName='active'>
+                    Home
+                </NavLink>
+                <NavLink to='/add' exact className='menu__item' activeClassName='active'>
+                    New Question
+                </NavLink>
+                <NavLink to='/leaderboard' exact className='menu__item' activeClassName='active'>
+                    Leader Board
+                </NavLink>
             </ul>
         </nav>
     )

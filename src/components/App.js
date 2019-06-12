@@ -20,40 +20,43 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <header className="header">
-          <h1 className='title'>APP - Would You Rather?</h1>
-          <Nav />
-          {this.props.user && (
-            <User />
-          )}
-        </header>
+      <Router>
+        <div className="container">
+          <header className="header">
+            <h1 className='title'>APP - Would You Rather?</h1>
+            <Nav />
+            {this.props.user && (
+              <User />
+            )}
+          </header>
 
-        <main className='main'>
-          {!this.props.user
-            ? <Login />
-            : (
-              <div>
-                <QuestionsAnswers />
-                <NewQuestion />
-                <LeaderBoard />
-                <Answered />
-                <Question />
-              </div>
-            )
-          }
-        </main>
+          <main className='main'>
+            {!this.props.user
+              ? <Login />
+              : (
+                <div>
+                  <Route path='/' exact component={QuestionsAnswers} />
+                  <Route path='/add' exact component={NewQuestion} />
+                  <Route path='/leaderboard' exact component={LeaderBoard} />
+                  <Answered />
+                  <Question />
+                </div>
+              )
+            }
+          </main>
 
-        <footer className='footer'>
-          {/*<h2>Developed by: Reberth</h2>*/}
-        </footer>
-      </div>
+          <footer className='footer'>
+            {/*<h2>Developed by: Reberth</h2>*/}
+          </footer>
+        </div>
+      </Router>
     );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
+    ...state,
     user: state.loggedUser ? state.loggedUser : null
   }
 }
