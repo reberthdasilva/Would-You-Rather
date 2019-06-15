@@ -185,6 +185,7 @@ let users = {
           }
         }
   
+        answer = 'optionOne';
         questions = {
           ...questions,
           [qid]: {

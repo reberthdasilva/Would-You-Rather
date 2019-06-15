@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import Nav from './Nav'
@@ -8,8 +8,9 @@ import Login from './Login'
 import QuestionsAnswers from './QuestionsAnswers'
 import NewQuestion from './NewQuestion'
 import LeaderBoard from './LeaderBoard'
-import Answered from './Answered'
+import Answer from './Answer'
 import Question from './Question'
+import Page404 from './Page404'
 
 import '../App.css'
 
@@ -34,19 +35,20 @@ class App extends Component {
             {!this.props.user
               ? <Login />
               : (
-                <div>
+                <Switch>
                   <Route path='/' exact component={QuestionsAnswers} />
                   <Route path='/add' exact component={NewQuestion} />
                   <Route path='/leaderboard' exact component={LeaderBoard} />
-                  <Answered />
-                  <Question />
-                </div>
+                  <Route path='/question/:id' exact component={Question} />
+                  <Route path='/answer/:id' exact component={Answer} />
+                  <Route component={Page404} />
+                </Switch>
               )
             }
           </main>
 
           <footer className='footer'>
-            {/*<h2>Developed by: Reberth</h2>*/}
+            <h2>Developed by: Reberth</h2>
           </footer>
         </div>
       </Router>

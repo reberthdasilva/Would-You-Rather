@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { logout } from '../actions/shared'
+import { removeLoggedUser } from '../actions/loggedUser'
 import Avatar from './Avatar'
 
 class User extends Component {
     handleLogout = (e) => {
         e.preventDefault()
-        this.props.dispatch(logout())
+        this.props.dispatch(removeLoggedUser())
     }
 
     render() {

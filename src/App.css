@@ -11,3 +11,14 @@
 
 
 /* Footer */
+
+
+
+
+.questions-answers .tab-pane {
+    display: none;
+}
+
+.questions-answers .tab-pane.active {
+    display: block;
+}

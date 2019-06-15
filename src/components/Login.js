@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { login } from '../actions/shared'
+import { setLoggedUser } from '../actions/loggedUser'
 
 class Login extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
 
-        this.props.dispatch(login(this.refs.users.value))
+        this.props.dispatch(setLoggedUser(this.refs.users.value))
     }
 
     render() {
@@ -24,7 +24,7 @@ class Login extends Component {
                         </option>
                     ))}
                 </select>
-                <button className='btn' type='submit'>Login</button>
+                <button className='btn' type='submit'>Sign in</button>
             </form>
         )
     }

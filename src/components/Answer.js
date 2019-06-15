@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-export default class Answered extends Component {
+export default class Answer extends Component {
     render() {
         return (
-            'Result question answered'
+            'Resposta'
         )
     }
 }
