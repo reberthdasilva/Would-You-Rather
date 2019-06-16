@@ -29,6 +29,7 @@ class LeaderBoard extends Component {
                                 <p>{users[id].name}</p>
                                 <p>Answered: {Object.keys(users[id].answers).length}</p>
                                 <p>Createds: {users[id].questions.length}</p>
+                                <p>Score: {(Object.keys(users[id].answers).length + users[id].questions.length)}</p>
                             </li>
                         ))
                 }

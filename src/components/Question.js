@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { alreadyAnswered } from '../utils/helpers'
 import { handleAnswerQuestion } from '../actions/questions'
 
 class Question extends Component {
@@ -12,19 +13,12 @@ class Question extends Component {
         this.props.dispatch(handleAnswerQuestion(qid, answer))
     }
 
-    alreadyAnswered = () => {
-        const {question, loggedUser} = this.props
-
-        return question.optionOne.votes.includes(loggedUser) ||
-            question.optionTwo.votes.includes(loggedUser)
-    }
-
     render() {
-        const { optionOne, optionTwo } = this.props.question
+        const { question, loggedUser, optionOne, optionTwo, qid } = this.props
 
-        return (this.alreadyAnswered()) ?
+        return (alreadyAnswered(question, loggedUser)) ?
         (
-            <Redirect to={`/answer/${this.props.qid}`} />
+            <Redirect to={`/answer/${qid}`} />
         ) :
         (
             <form onSubmit={this.handleSubmit}>
@@ -40,6 +34,8 @@ class Question extends Component {
 const mapStateToProps = ({questions, loggedUser}, {match}) => {
     return {
         question: questions[match.params.id],
+        optionOne: questions[match.params.id].optionOne,
+        optionTwo: questions[match.params.id].optionTwo,
         qid: match.params.id,
         loggedUser
     }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
+import Avatar from './Avatar'
 
 class QuestionsAnswers extends Component {
     state = {
@@ -20,7 +21,7 @@ class QuestionsAnswers extends Component {
     }
 
     render() {
-        const { questions, user } = this.props
+        const { questions, user, users } = this.props
 
         if (!questions || !user) return null
 
@@ -48,8 +49,12 @@ class QuestionsAnswers extends Component {
                                 .map(question => (
                                     <li key={question}>
                                         <Link to={`/question/${question}`}>
-                                            {question}
+                                            <p>Asked by {users[questions[question].author].name}</p>
+                                            <p><Avatar name={users[questions[question].author].name} /></p>
+                                            <p>Would you rather:</p>
+                                            <p>{questions[question].optionOne.text} <strong>OR</strong> {questions[question].optionTwo.text}</p>
                                         </Link>
+                                        <hr />
                                     </li>)
                                 )
                             }
@@ -66,7 +71,10 @@ class QuestionsAnswers extends Component {
                                 .map(question => (
                                     <li key={question}>
                                         <Link to={`/answer/${question}`}>
-                                            {question}
+                                            <p>Asked by {users[questions[question].author].name}</p>
+                                            <p><Avatar name={users[questions[question].author].name} /></p>
+                                            <p>Would you rather:</p>
+                                            <p>{questions[question].optionOne.text} <strong>OR</strong> {questions[question].optionTwo.text}</p>
                                         </Link>
                                     </li>
                                 ))
@@ -79,10 +87,11 @@ class QuestionsAnswers extends Component {
     }
 }
 
-const mapStateToProps = ({ questions, loggedUser }) => {
+const mapStateToProps = ({ questions, loggedUser, users }) => {
     return {
         questions,
-        user: loggedUser
+        user: loggedUser,
+        users
     }
 }
 
