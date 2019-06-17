@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Container, Row, Col } from 'reactstrap'
 import { handleInitialData } from '../actions/shared'
-import Nav from './Nav'
-import User from './User'
+import Menu from './Menu'
 import Login from './Login'
 import QuestionsAnswers from './QuestionsAnswers'
 import NewQuestion from './NewQuestion'
@@ -22,35 +22,32 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="container">
+        <Container fluid={true}>
           <header className="header">
             <h1 className='title'>APP - Would You Rather?</h1>
-            <Nav />
-            {this.props.user && (
-              <User />
-            )}
+            <Container>
+              <Menu />
+            </Container>
           </header>
 
-          <main className='main'>
-            {!this.props.user
-              ? <Login />
-              : (
-                <Switch>
-                  <Route path='/' exact component={QuestionsAnswers} />
-                  <Route path='/add' exact component={NewQuestion} />
-                  <Route path='/leaderboard' exact component={LeaderBoard} />
-                  <Route path='/question/:id' exact component={Question} />
-                  <Route path='/answer/:id' exact component={Answer} />
-                  <Route component={Page404} />
-                </Switch>
-              )
-            }
-          </main>
-
-          <footer className='footer'>
-            <h2>Developed by: Reberth</h2>
-          </footer>
-        </div>
+          <Container>
+            <main className='main'>
+              {!this.props.user
+                ? <Login />
+                : (
+                  <Switch>
+                    <Route path='/' exact component={QuestionsAnswers} />
+                    <Route path='/add' exact component={NewQuestion} />
+                    <Route path='/leaderboard' exact component={LeaderBoard} />
+                    <Route path='/question/:id' exact component={Question} />
+                    <Route path='/answer/:id' exact component={Answer} />
+                    <Route component={Page404} />
+                  </Switch>
+                )
+              }
+            </main>
+          </Container>
+        </Container>
       </Router>
     );
   }
