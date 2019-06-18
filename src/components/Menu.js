@@ -39,9 +39,9 @@ class Menu extends Component {
                         {user && (
                             <>
                                 <li className="nav-item"><span className='nav-link user-name'>Welcome {user.name}</span></li>
-                                <li className="nav-item"><Avatar name={user.name} /></li>
+                                <li className="nav-item"><Avatar name={user.name} width="40px" /></li>
                                 <li className="nav-item">
-                                    <span className='nav-link' onClick={this.handleLogout}>Logout</span>
+                                    <a href='' className='nav-link' onClick={this.handleLogout}>Logout</a>
                                 </li>
                             </>
                         )}

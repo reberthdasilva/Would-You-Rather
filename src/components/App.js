@@ -11,8 +11,6 @@ import Answer from './Answer'
 import Question from './Question'
 import Page404 from './Page404'
 
-import '../App.css'
-
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
@@ -23,7 +21,7 @@ class App extends Component {
       <Router>
         <div className="container-fluid">
           <header className="header">
-            <h1 className='title'>APP - Would You Rather?</h1>
+            <h1 className='h1 text-center text-light bg-dark'>Would You Rather?</h1>
             <div className="container">
               <Menu />
             </div>
