@@ -47,5 +47,3 @@ export function handleAnswerQuestion(qid, answer) {
         .then(() => dispatch(answerQuestion(question)))
     }
 }
-
-//authedUser, qid, answer

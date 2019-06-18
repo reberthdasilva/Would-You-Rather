@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect, Link, withRouter } from 'react-router-dom'
-import { ListGroup, ListGroupItem, Card, CardHeader, CardBody, CardTitle, CardText, Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap'
+import { NavLink, withRouter } from 'react-router-dom'
 import Avatar from './Avatar'
 
 class QuestionsAnswers extends Component {
     state = {
-        tab: 0,
+        tab: 0
     }
 
     handleTabs = (valueTab) => this.setState({ tab: valueTab })
@@ -27,81 +26,75 @@ class QuestionsAnswers extends Component {
 
         return (
             <div className='questions-answers'>
-                <Nav tabs>
-                    <NavItem>
-                        <NavLink className={!this.state.tab ? 'active nav-link' : 'nav-link'} onClick={() => this.handleTabs(0)}>
+                <ul className="nav nav-tabs">
+                    <li className="nav-item">
+                        <span className={!this.state.tab ? 'active nav-link' : 'nav-link'} onClick={() => this.handleTabs(0)}>
                             Not Answered
-                        </NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink className={this.state.tab ? 'active nav-link' : 'nav-link'} onClick={() => this.handleTabs(1)}>
+                        </span>
+                    </li>
+                    <li className="nav-item">
+                        <span className={this.state.tab ? 'active nav-link' : 'nav-link'} onClick={() => this.handleTabs(1)}>
                             Answered
-                        </NavLink>
-                    </NavItem>
-                </Nav>
+                        </span>
+                    </li>
+                </ul>
                 <div className='tab-content'>
-                    <TabContent activeTab={this.state.tab}>
-                        <TabPane tabId={0}>
-                            <ListGroup>
-                                {questionsIds
-                                    .filter(questionID =>
-                                        !questions[questionID].optionOne.votes.includes(user)
-                                        && !questions[questionID].optionTwo.votes.includes(user)
-                                    )
-                                    .sort(this.orderByDate)
-                                    .map(question => (
-                                        <ListGroupItem key={question}>
-                                            <Card>
-                                                <CardHeader>
-                                                    Asked by {users[questions[question].author].name}
-                                                    <Avatar name={users[questions[question].author].name} />
-                                                </CardHeader>
-                                                <CardBody>
-                                                    <CardTitle>Would you rather:</CardTitle>
-                                                    <CardText>{questions[question].optionOne.text}</CardText>
-                                                    <CardText>{questions[question].optionTwo.text}</CardText>
-                                                    <Link className='btn btn-outline-secondary' to={`/question/${question}`}>
-                                                        View more
-                                                    </Link>
-                                                </CardBody>
-                                            </Card>
-                                        </ListGroupItem>
-                                    ))
-                                }
-                            </ListGroup>
-                        </TabPane>
-                    </TabContent>
-                    <TabContent activeTab={this.state.tab}>
-                        <TabPane tabId={1}>
-                            <ListGroup>
-                                {questionsIds
-                                    .filter(questionID =>
-                                        questions[questionID].optionOne.votes.includes(user)
-                                        || questions[questionID].optionTwo.votes.includes(user)
-                                    )
-                                    .sort(this.orderByDate)
-                                    .map(question => (
-                                        <ListGroupItem key={question}>
-                                            <Card>
-                                                <CardHeader>
-                                                    Asked by {users[questions[question].author].name}
-                                                    <Avatar name={users[questions[question].author].name} />
-                                                </CardHeader>
-                                                <CardBody>
-                                                    <CardTitle>Would you rather:</CardTitle>
-                                                    <CardText>{questions[question].optionOne.text}</CardText>
-                                                    <CardText>{questions[question].optionTwo.text}</CardText>
-                                                    <Link className='btn btn-outline-secondary' to={`/answer/${question}`}>
-                                                        View more
-                                                    </Link>
-                                                </CardBody>
-                                            </Card>
-                                        </ListGroupItem>
-                                    ))
-                                }
-                            </ListGroup>
-                        </TabPane>
-                    </TabContent>
+                    <div className={!this.state.tab ? 'tab-pane active' : 'tab-pane'}>
+                        <ul className="list-group">
+                            {questionsIds
+                                .filter(questionID =>
+                                    !questions[questionID].optionOne.votes.includes(user)
+                                    && !questions[questionID].optionTwo.votes.includes(user)
+                                )
+                                .sort(this.orderByDate)
+                                .map(question => (                                    
+                                    <li className="list-group-item" key={question}>
+                                        <div className="card">
+                                            <div className="card-header">
+                                                Asked by: <Avatar name={users[questions[question].author].name} />
+                                            </div>
+                                            <div className="card-body">
+                                                <div className="card-title">Would you rather:</div>
+                                                <div className="card-text">{questions[question].optionOne.text}</div>
+                                                <div className="card-text">{questions[question].optionTwo.text}</div>
+                                                <NavLink className='btn btn-outline-secondary' to={`/question/${question}`}>
+                                                    View more
+                                                </NavLink>
+                                            </div>
+                                        </div>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>                    
+                    <div className={this.state.tab ? 'tab-pane active' : 'tab-pane'}>
+                        <ul className="list-group">
+                            {questionsIds
+                                .filter(questionID =>
+                                    questions[questionID].optionOne.votes.includes(user)
+                                    || questions[questionID].optionTwo.votes.includes(user)
+                                )
+                                .sort(this.orderByDate)
+                                .map(question => (
+                                    <li className="list-group-item" key={question}>
+                                        <div className="card">
+                                            <div className="card-header">
+                                                Asked by: <Avatar name={users[questions[question].author].name} />
+                                            </div>
+                                            <div className="card-body">
+                                                <div className="card-title">Would you rather:</div>
+                                                <div className="card-text">{questions[question].optionOne.text}</div>
+                                                <div className="card-text">{questions[question].optionTwo.text}</div>
+                                                <NavLink className='btn btn-outline-secondary' to={`/answer/${question}`}>
+                                                    View more
+                                                </NavLink>
+                                            </div>
+                                        </div>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
         )

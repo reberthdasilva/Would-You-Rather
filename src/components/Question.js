@@ -22,10 +22,18 @@ class Question extends Component {
         ) :
         (
             <form onSubmit={this.handleSubmit}>
-                <p>Would you rather...</p>
-                <p><input value='optionOne' type='radio' name='answer' /> {optionOne.text}</p>
-                <p><input value='optionTwo' type='radio' name='answer' /> {optionTwo.text}</p>
-                <button className='btn' type='submit'>Send</button>
+                <div className="form-group">
+                    <h3 className="mb-0">Would you rather...</h3>
+                </div>                
+                <div className="form-group">
+                    <label><input value='optionOne' type='radio' name='answer' /> {optionOne.text}</label>
+                </div>                        
+                <div className="form-group">
+                    <label><input value='optionTwo' type='radio' name='answer' /> {optionTwo.text}</label>
+                </div>
+                <div className="form-group">
+                    <button className="btn btn-secondary" type="submit">Send</button>
+                </div>
             </form>
         )
     }

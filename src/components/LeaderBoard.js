@@ -19,29 +19,37 @@ class LeaderBoard extends Component {
         let usersID = Object.keys(users)
 
         return (
-            <ul className='leader-board'>
-                {
-                    usersID
-                        .sort(this.orderingUsers)
-                        .map(id => (
-                            <li key={users[id].id}>
-                                <Avatar name={users[id].name} />
-                                <p>{users[id].name}</p>
-                                <p>Answered: {Object.keys(users[id].answers).length}</p>
-                                <p>Createds: {users[id].questions.length}</p>
-                                <p>Score: {(Object.keys(users[id].answers).length + users[id].questions.length)}</p>
-                            </li>
-                        ))
+            <ul className='list-group'>
+                {usersID
+                    .sort(this.orderingUsers)
+                    .map(id => (
+                        <li className="list-group-item" key={id}>
+                            <div className="card">
+                                <div className="card-header">
+                                    <Avatar name={users[id].name} /> {users[id].name}
+                                </div>
+                                <div className="card-body">
+                                    <div className="card-text">
+                                        Answered: {Object.keys(users[id].answers).length}
+                                    </div>
+                                    <div className="card-text">
+                                        Createds: {users[id].questions.length}
+                                    </div>
+                                    <div className="card-text">
+                                        <strong>
+                                            Score: {(Object.keys(users[id].answers).length + users[id].questions.length)}
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    ))
                 }
             </ul>
         )
     }
 }
 
-const mapStateToProps = ({ users }) => {
-    return {
-        users
-    }
-}
+const mapStateToProps = ({ users }) => ({users})
 
 export default connect(mapStateToProps)(LeaderBoard)

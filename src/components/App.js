@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Container, Row, Col } from 'reactstrap'
 import { handleInitialData } from '../actions/shared'
 import Menu from './Menu'
 import Login from './Login'
@@ -22,15 +21,15 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Container fluid={true}>
+        <div className="container-fluid">
           <header className="header">
             <h1 className='title'>APP - Would You Rather?</h1>
-            <Container>
+            <div className="container">
               <Menu />
-            </Container>
+            </div>
           </header>
 
-          <Container>
+          <div className="container">
             <main className='main'>
               {!this.props.user
                 ? <Login />
@@ -46,8 +45,8 @@ class App extends Component {
                 )
               }
             </main>
-          </Container>
-        </Container>
+          </div>
+        </div>
       </Router>
     );
   }

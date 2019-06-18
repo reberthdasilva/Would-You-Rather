@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import { setLoggedUser } from '../actions/loggedUser'
 
 class Login extends Component {
@@ -12,10 +11,10 @@ class Login extends Component {
     render() {
         const { users } = this.props
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <FormGroup>
-                    <Label for="list-users">Please choose your user from the list:</Label>
-                    <Input type="select" name="users" id="users" ref='users'>
+            <form onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                    <label>Please choose your user from the list:</label>
+                    <select name="users" id="users" className="form-control">
                         {Object.keys(users).map(user => (
                             <option
                                 name='user'
@@ -25,10 +24,10 @@ class Login extends Component {
                                 {users[user].name}
                             </option>
                         ))}
-                    </Input>
-                </FormGroup>
-                <Button>Sign in</Button>
-            </Form>
+                    </select>
+                </div>
+                <button className="btn btn-secondary">Sign in</button>
+            </form>
         )
     }
 }

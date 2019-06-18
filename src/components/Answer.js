@@ -6,21 +6,32 @@ import Avatar from './Avatar'
 
 
 class Answer extends Component {
+    percentVotes = option => {
+        const { optionOne, optionTwo } = this.props
+        return `${(100 / (optionOne.votes.length + optionTwo.votes.length) * option.votes.length)}%`
+    }
+
+    voted = (option, loggedUser) => option.votes.includes(loggedUser) ? <span class="badge badge-secondary">Your choice!</span> : ''
+
     render() {
-        const {question, optionOne, optionTwo, qid, questionUser, loggedUser} = this.props
-        console.log(optionOne, optionTwo, questionUser)
+        const { question, optionOne, optionTwo, qid, questionUser, loggedUser } = this.props
 
         return (!alreadyAnswered(question, loggedUser)) ?
             (
                 <Redirect to={`/question/${qid}`} />
             ) :
             (
-                <div className='answer'>
-                    <p>Asked by {question.author.toUpperCase()}</p>
-                    <p><Avatar name={questionUser} /></p>
-                    <p>Results:</p>
-                    <p>{optionOne.text} - {(100 / (optionOne.votes.length + optionTwo.votes.length) * optionOne.votes.length)}% - {optionOne.votes.includes(loggedUser) ? 'VOCÊ RESPONDEU ESSA' : ''}</p>
-                    <p>{optionTwo.text} - {(100 / (optionOne.votes.length + optionTwo.votes.length) * optionTwo.votes.length)}% - {optionTwo.votes.includes(loggedUser) ? 'VOCÊ RESPONDEU ESSA' : ''}</p>
+                <div className='card'>
+                    <div className="card-header">Asked by: <Avatar name={questionUser} /></div>
+                    <div class="card-body">
+                        <div className="card-title">Results:</div>
+                        <div className="card-text">                            
+                            {optionOne.text} ({this.percentVotes(optionOne)}) {this.voted(optionOne, loggedUser)}
+                        </div>
+                        <div className="card-text">
+                            {optionTwo.text} ({this.percentVotes(optionTwo)}) {this.voted(optionTwo, loggedUser)}
+                        </div>
+                    </div>
                 </div>
             )
     }
