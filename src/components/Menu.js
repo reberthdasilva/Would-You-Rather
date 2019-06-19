@@ -41,7 +41,7 @@ class Menu extends Component {
                                 <li className="nav-item"><span className='nav-link user-name'>Welcome {user.name}</span></li>
                                 <li className="nav-item"><Avatar name={user.name} width="40px" /></li>
                                 <li className="nav-item">
-                                    <a href='' className='nav-link' onClick={this.handleLogout}>Logout</a>
+                                    <a href='/' className='nav-link' onClick={this.handleLogout}>Logout</a>
                                 </li>
                             </>
                         )}
