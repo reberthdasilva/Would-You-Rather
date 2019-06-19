@@ -1,10 +1,10 @@
 import React from 'react'
 
 const Page404 = () => (
-    <div class="alert alert-danger" role="alert">
-        <h4 class="alert-heading">Page not found!</h4>
+    <div className="alert alert-danger" role="alert">
+        <h4 className="alert-heading">Page not found!</h4>
         <hr />
-        <p class="mb-0">Sorry, this page isn't available.</p>
+        <p className="mb-0">Sorry, this page isn't available.</p>
     </div>
 )
 

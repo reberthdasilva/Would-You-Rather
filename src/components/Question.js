@@ -14,6 +14,8 @@ class Question extends Component {
     }
 
     render() {
+        if(this.props.notQuestion) return (<Redirect to={`/404`} />)
+
         const { question, loggedUser, optionOne, optionTwo, qid } = this.props
 
         return (alreadyAnswered(question, loggedUser)) ?
@@ -40,12 +42,14 @@ class Question extends Component {
 }
 
 const mapStateToProps = ({questions, loggedUser}, {match}) => {
+    if(!questions[match.params.id]) return { notQuestion: true }
     return {
         question: questions[match.params.id],
         optionOne: questions[match.params.id].optionOne,
         optionTwo: questions[match.params.id].optionTwo,
         qid: match.params.id,
-        loggedUser
+        loggedUser,
+        notQuestion: false
     }
 }
 
