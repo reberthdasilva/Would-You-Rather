@@ -8,10 +8,15 @@ import Avatar from './Avatar'
 class Answer extends Component {
     percentVotes = option => {
         const { optionOne, optionTwo } = this.props
-        return `${(100 / (optionOne.votes.length + optionTwo.votes.length) * option.votes.length)}%`
+        return (
+            <span>
+                <strong>{option.votes.length} votes </strong>
+                {(100 / (optionOne.votes.length + optionTwo.votes.length) * option.votes.length)}%
+            </span>
+        )  
     }
 
-    voted = (option, loggedUser) => option.votes.includes(loggedUser) ? <span class="badge badge-secondary">Your choice!</span> : ''
+    voted = (option, loggedUser) => option.votes.includes(loggedUser) ? <span className="badge badge-secondary">Your choice!</span> : ''
 
     render() {
         if(this.props.notQuestion) return (<Redirect to={`/404`} />)
@@ -27,11 +32,11 @@ class Answer extends Component {
                     <div className="card-header">Asked by: <Avatar name={questionUser} /></div>
                     <div className="card-body">
                         <div className="card-title">Results:</div>
-                        <div className="card-text">                            
-                            {optionOne.text} ({this.percentVotes(optionOne)}) {this.voted(optionOne, loggedUser)}
+                        <div className="card-text">
+                            {optionOne.text}: {this.percentVotes(optionOne)} {this.voted(optionOne, loggedUser)}
                         </div>
                         <div className="card-text">
-                            {optionTwo.text} ({this.percentVotes(optionTwo)}) {this.voted(optionTwo, loggedUser)}
+                            {optionTwo.text}: {this.percentVotes(optionTwo)} {this.voted(optionTwo, loggedUser)}
                         </div>
                     </div>
                 </div>
