@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { alreadyAnswered } from '../utils/helpers'
 import { handleAnswerQuestion } from '../actions/questions'
+import Avatar from './Avatar'
 
 class Question extends Component {
     handleSubmit = (event) => {
@@ -16,7 +17,7 @@ class Question extends Component {
     render() {
         if(this.props.notQuestion) return (<Redirect to={`/404`} />)
 
-        const { question, loggedUser, optionOne, optionTwo, qid } = this.props
+        const { question, loggedUser, optionOne, optionTwo, qid, userQuestion } = this.props
 
         return (alreadyAnswered(question, loggedUser)) ?
         (
@@ -26,6 +27,9 @@ class Question extends Component {
             <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <h3 className="mb-0">Would you rather...</h3>
+                </div>
+                <div className="form-group">
+                    Asked by <Avatar name={userQuestion} />
                 </div>                
                 <div className="form-group">
                     <label><input value='optionOne' type='radio' name='answer' /> {optionOne.text}</label>
@@ -41,7 +45,7 @@ class Question extends Component {
     }
 }
 
-const mapStateToProps = ({questions, loggedUser}, {match}) => {
+const mapStateToProps = ({questions, loggedUser, users}, {match}) => {
     if(!questions[match.params.id]) return { notQuestion: true }
     return {
         question: questions[match.params.id],
@@ -49,6 +53,7 @@ const mapStateToProps = ({questions, loggedUser}, {match}) => {
         optionTwo: questions[match.params.id].optionTwo,
         qid: match.params.id,
         loggedUser,
+        userQuestion: users[questions[match.params.id].author].name,
         notQuestion: false
     }
 }
